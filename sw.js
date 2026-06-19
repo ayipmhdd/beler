@@ -1,10 +1,19 @@
-const CACHE_NAME = 'math-brain-v5';
+const CACHE_NAME = 'math-brain-v7';
 const urlsToCache = [
     './',
     './index.html',
     './script.js',
+    './core/state.js',
+    './components/home.js',
+    './components/modelSelection.js',
+    './modules/matematika/mathConfig.js',
+    './modules/matematika/mathGame.js',
+    './modules/matematika/mathResult.js',
+    './modules/english/engConfig.js',
+    './modules/english/engGame.js',
     './manifest.json',
-    './tailwindcss.js'
+    './tailwindcss.js',
+    './assets/cat-drooling.jpg'
 ];
 
 // Install Event: Cache essential assets and skip waiting for immediate control

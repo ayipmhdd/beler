@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Asah Otak Matematika</title>
+    <title>Beler</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
-    <meta name="description" content="Aplikasi PWA Asah Otak Matematika untuk latihan berhitung sehari-hari.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+    <meta name="description" content="Aplikasi latihan mengasah otak biar gak beler-beler amat.">
+    <link rel="icon" href="assets/cat-drooling.jpg">
     <!-- Tailwind CSS (Offline Local Script) -->
     <script src="tailwindcss.js"></script>
     <script>
@@ -53,13 +53,12 @@
     </div>
 
     <!-- App Logic -->
-    <script src="script.js"></script>
-
-    <!-- Standard Service Worker Registration -->
+    <script src="script.js" type="module"></script>
     <script>
+        // PWA Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js', { scope: './' })
+                navigator.serviceWorker.register('./sw.js')
                     .then(registration => {
                         console.log('Service Worker successfully registered with scope: ', registration.scope);
                     })
