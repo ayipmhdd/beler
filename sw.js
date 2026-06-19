@@ -1,4 +1,4 @@
-const CACHE_NAME = 'math-brain-v1';
+const CACHE_NAME = 'math-brain-v5';
 const urlsToCache = [
     './',
     './index.html',
@@ -17,9 +17,19 @@ self.addEventListener('install', event => {
     );
 });
 
-// Activate Event: Claim clients to take over the active pages immediately
+// Activate Event: Clean up old caches and take over immediate control
 self.addEventListener('activate', event => {
-    event.waitUntil(self.clients.claim());
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cacheName => {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        }).then(() => self.clients.claim())
+    );
 });
 
 // Fetch Event: Strict Cache-First Strategy with Network Fallback
