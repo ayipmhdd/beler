@@ -50,6 +50,11 @@ window.selectGameMode = (mode) => {
     render();
 };
 
+window.selectGameType = (type) => {
+    state.gameType = type;
+    render();
+};
+
 window.startGame = () => {
     if(!state.difficulty) return;
     
@@ -58,6 +63,7 @@ window.startGame = () => {
     state.score = 0;
     state.totalAnswered = 0;
     state.answered = false;
+    state.currentInputAnswer = '';
     state.screen = 'game';
     
     if (state.gameMode === 'timed') {
@@ -84,6 +90,11 @@ window.quitGame = () => {
 };
 
 window.answerQuestion = answerQuestion;
+
+import { answerTrueFalse, inputKeypad, submitInput } from './modules/matematika/mathGame.js';
+window.answerTrueFalse = answerTrueFalse;
+window.inputKeypad = inputKeypad;
+window.submitInput = submitInput;
 
 // Boot
 render();
