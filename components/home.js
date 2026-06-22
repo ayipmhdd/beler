@@ -15,8 +15,8 @@ export function renderHome() {
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                     </div>
                     <div class="flex flex-col">
-                        <h2 class="text-xl font-black text-slate-100 mb-1 tracking-wide">Matematika</h2>
-                        <p class="text-slate-400 text-sm font-medium">Latih kecepatan berhitung</p>
+                        <h2 class="text-xl font-black text-slate-100 mb-1 tracking-wide">Latihan Matematika</h2>
+                        <p class="text-slate-400 text-sm font-medium">Biar otak lu agak sinkron dikit pas ngitung.</p>
                     </div>
                 </button>
                 
@@ -25,8 +25,8 @@ export function renderHome() {
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                     </div>
                     <div class="flex flex-col">
-                        <h2 class="text-xl font-black text-slate-100 mb-1 tracking-wide">B. Inggris</h2>
-                        <p class="text-slate-400 text-sm font-medium">Vocabulary & Grammar</p>
+                        <h2 class="text-xl font-black text-slate-100 mb-1 tracking-wide">Belajar B. Inggris</h2>
+                        <p class="text-slate-400 text-sm font-medium">Very well, minimal tau arti overthink lah.</p>
                     </div>
                 </button>
             </div>

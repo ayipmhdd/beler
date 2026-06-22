@@ -9,11 +9,18 @@ export function renderResult() {
     const modeLabel = state.gameMode === 'timed' ? `Waktu ${modeVal} Detik` : `Target ${modeVal} Soal`;
     const newHighHtml = (state.isNewHigh && state.score > 0) ? '<div class="absolute top-0 inset-x-0 bg-gradient-to-r from-emerald-500 to-teal-400 text-white text-[10px] font-black text-center py-1.5 uppercase tracking-[0.2em] shadow-md">Skor Tertinggi Baru!</div>' : '';
     
+    let commentaryText = "Beler parah lu, tidur gih \uD83D\uDCA4";
+    if (state.score === 100) {
+        commentaryText = "Gokil, ingfo sepuh mtk \uD83D\uDE80";
+    } else if (state.score >= 50 && state.score < 100) {
+        commentaryText = "Aman, sel-sel otak lu masih bekerja. \uD83C\uDF89";
+    }
+    
     app.innerHTML = `
         <div class="flex-1 flex flex-col p-6 items-center justify-center animate-pop">
             <div class="mb-6 text-center mt-6">
-                <div class="text-7xl mb-4 transform hover:scale-110 transition-transform duration-300 drop-shadow-xl">
-                    ${state.score > 0 ? '🎉' : '👍'}
+                <div class="text-xl mb-4 font-black text-blue-400 bg-blue-500/10 border border-blue-500/20 py-3 px-6 rounded-2xl inline-block shadow-sm">
+                    ${commentaryText}
                 </div>
                 <h1 class="text-3xl font-extrabold text-white mb-2 tracking-tight">Permainan Selesai!</h1>
                 <p class="text-slate-400 font-medium text-sm">Campuran &bull; ${DIFFICULTIES[state.difficulty].name} &bull; ${modeLabel}</p>

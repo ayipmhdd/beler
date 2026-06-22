@@ -9,7 +9,7 @@ export function renderGameConfig() {
             <div class="mb-8">
                 <label class="block text-xs font-bold text-slate-400 mb-3 tracking-widest uppercase">Pilih Durasi Waktu</label>
                 <div class="relative">
-                    <select id="timerDurationSelect" onchange="state.timerDuration = parseInt(this.value)" class="block appearance-none w-full bg-[#161f30] border border-slate-700/60 text-slate-100 font-bold py-4 px-5 rounded-[1.2rem] leading-tight focus:outline-none focus:border-blue-500 transition-colors shadow-sm">
+                    <select id="timerDurationSelect" class="block appearance-none w-full bg-[#161f30] border border-slate-700/60 text-slate-100 font-bold py-4 px-5 rounded-[1.2rem] leading-tight focus:outline-none focus:border-blue-500 transition-colors shadow-sm">
                         <option value="30" ${state.timerDuration === 30 ? 'selected' : ''}>30 Detik (Default)</option>
                         <option value="40" ${state.timerDuration === 40 ? 'selected' : ''}>40 Detik</option>
                         <option value="50" ${state.timerDuration === 50 ? 'selected' : ''}>50 Detik</option>
@@ -26,7 +26,7 @@ export function renderGameConfig() {
             <div class="mb-8">
                 <label class="block text-xs font-bold text-slate-400 mb-3 tracking-widest uppercase">Pilih Jumlah Soal</label>
                 <div class="relative">
-                    <select id="questionLimitSelect" onchange="state.questionLimit = parseInt(this.value)" class="block appearance-none w-full bg-[#161f30] border border-slate-700/60 text-slate-100 font-bold py-4 px-5 rounded-[1.2rem] leading-tight focus:outline-none focus:border-blue-500 transition-colors shadow-sm">
+                    <select id="questionLimitSelect" class="block appearance-none w-full bg-[#161f30] border border-slate-700/60 text-slate-100 font-bold py-4 px-5 rounded-[1.2rem] leading-tight focus:outline-none focus:border-blue-500 transition-colors shadow-sm">
                         <option value="10" ${state.questionLimit === 10 ? 'selected' : ''}>10 Soal (Default)</option>
                         <option value="20" ${state.questionLimit === 20 ? 'selected' : ''}>20 Soal</option>
                         <option value="30" ${state.questionLimit === 30 ? 'selected' : ''}>30 Soal</option>
@@ -55,12 +55,14 @@ export function renderGameConfig() {
             
             <h2 class="text-xs font-bold tracking-widest uppercase mb-3 text-slate-400">Tingkat Kesulitan</h2>
             <div class="flex flex-col gap-3 mb-8">
-                ${Object.entries(DIFFICULTIES).map(([key, diff]) => `
+                ${Object.entries(DIFFICULTIES).map(([key, diff]) => {
+                    const diffLabels = { mudah: 'Cupu (Easy)', sedang: 'Agak Mikir (Medium)', sulit: 'Sepuh (Hard)' };
+                    return `
                     <button onclick="selectDifficulty('${key}')" class="py-4 px-5 flex items-center justify-between rounded-2xl border-2 transition-all duration-100 ${state.difficulty === key ? 'bg-blue-600/10 border-blue-500 text-blue-400' : 'bg-[#161f30] border-slate-700/60 text-slate-300 hover:bg-slate-800 hover:border-slate-600'}">
-                        <div class="font-bold text-base tracking-wide">${diff.name}</div>
+                        <div class="font-bold text-base tracking-wide">${diffLabels[key] || diff.name}</div>
                         ${state.difficulty === key ? '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>' : '<div class="w-6 h-6 rounded-full border-2 border-slate-700"></div>'}
                     </button>
-                `).join('')}
+                `;}).join('')}
             </div>
             
             <h2 class="text-xs font-bold tracking-widest uppercase mb-3 text-slate-400">Tipe Game</h2>
@@ -83,11 +85,11 @@ export function renderGameConfig() {
             <div class="grid grid-cols-2 gap-3 mb-8">
                 <button onclick="selectGameMode('timed')" class="py-4 px-2 flex flex-col items-center justify-center rounded-2xl border-2 transition-all duration-100 ${state.gameMode === 'timed' ? 'bg-blue-600/10 border-blue-500 text-blue-400' : 'bg-[#161f30] border-slate-700/60 text-slate-400 hover:bg-slate-800'}">
                     <svg class="w-7 h-7 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span class="font-bold text-sm">Pakai Timer</span>
+                    <span class="font-bold text-sm text-center">Speedrun<br/>(Pakai Timer)</span>
                 </button>
                 <button onclick="selectGameMode('fixed')" class="py-4 px-2 flex flex-col items-center justify-center rounded-2xl border-2 transition-all duration-100 ${state.gameMode === 'fixed' ? 'bg-blue-600/10 border-blue-500 text-blue-400' : 'bg-[#161f30] border-slate-700/60 text-slate-400 hover:bg-slate-800'}">
                     <svg class="w-7 h-7 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
-                    <span class="font-bold text-sm">Tanpa Timer</span>
+                    <span class="font-bold text-sm text-center">Santai<br/>(Tanpa Timer)</span>
                 </button>
             </div>
             

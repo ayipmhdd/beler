@@ -58,6 +58,12 @@ window.selectGameType = (type) => {
 window.startGame = () => {
     if(!state.difficulty) return;
     
+    const durationEl = document.getElementById('timerDurationSelect');
+    if (durationEl) state.timerDuration = parseInt(durationEl.value);
+    
+    const limitEl = document.getElementById('questionLimitSelect');
+    if (limitEl) state.questionLimit = parseInt(limitEl.value);
+    
     state.questions = [createMixedQuestion(DIFFICULTIES[state.difficulty].range)];
     state.currentQuestionIndex = 0;
     state.score = 0;
