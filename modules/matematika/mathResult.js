@@ -9,10 +9,12 @@ export function renderResult() {
     const modeLabel = state.gameMode === 'timed' ? `Waktu ${modeVal} Detik` : `Target ${modeVal} Soal`;
     const newHighHtml = (state.isNewHigh && state.score > 0) ? '<div class="absolute top-0 inset-x-0 bg-gradient-to-r from-emerald-500 to-teal-400 text-white text-[10px] font-black text-center py-1.5 uppercase tracking-[0.2em] shadow-md">Skor Tertinggi Baru!</div>' : '';
     
+    const maxScore = state.gameMode === 'fixed' ? (state.questionLimit * 10) : (state.totalAnswered * 10);
+    
     let commentaryText = "Beler parah lu, tidur gih \uD83D\uDCA4";
-    if (state.score === 100) {
+    if (state.score === maxScore && state.score > 0) {
         commentaryText = "Gokil, ingfo sepuh mtk \uD83D\uDE80";
-    } else if (state.score >= 50 && state.score < 100) {
+    } else if (state.score >= (maxScore * 0.5) && state.score < maxScore) {
         commentaryText = "Aman, sel-sel otak lu masih bekerja. \uD83C\uDF89";
     }
     
