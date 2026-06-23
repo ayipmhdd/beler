@@ -105,6 +105,23 @@ window.submitInput = submitInput;
 // Boot
 render();
 
+// Startup SFX with browser Autoplay Policy fallback
+const playBootSfx = () => {
+    const sfx = document.getElementById('splash-sfx');
+    if (!sfx) return;
+    sfx.play().catch(() => {
+        // Browser blocked autoplay — wait for first user interaction
+        const playOnFirstInteraction = () => {
+            sfx.play();
+            document.removeEventListener('click', playOnFirstInteraction);
+            document.removeEventListener('touchstart', playOnFirstInteraction);
+        };
+        document.addEventListener('click', playOnFirstInteraction);
+        document.addEventListener('touchstart', playOnFirstInteraction);
+    });
+};
+playBootSfx();
+
 // PWA Install Logic
 window.installPWA = async () => {
     if (window.deferredPrompt) {

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'math-brain-v7';
+const CACHE_NAME = 'math-brain-v8';
 const urlsToCache = [
     './',
     './index.html',
@@ -13,7 +13,8 @@ const urlsToCache = [
     './modules/english/engGame.js',
     './manifest.json',
     './tailwindcss.js',
-    './assets/cat-drooling.jpg'
+    './assets/cat-drooling.jpg',
+    './assets/sound-effects/subway-surfers-revive.mp3'
 ];
 
 // Install Event: Cache essential assets and skip waiting for immediate control

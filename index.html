@@ -28,10 +28,12 @@
     <style>
         /* Base styles for Native App feel */
         body {
-            overscroll-behavior-y: contain; /* Prevents pull-to-refresh on mobile */
+            overscroll-behavior-y: contain;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
-            background-color: #020617; /* slate-950 */
+            background-color: #020617;
+            overflow: hidden;
+            height: 100dvh;
         }
         
         /* Smooth micro-animations for UI transitions */
@@ -46,32 +48,39 @@
 
         /* Feedback toast slide-down animation */
         #feedback-toast {
-            position: fixed;
+            position: absolute;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100%);
-            width: 100%;
-            max-width: 28rem; /* matches max-w-md */
+            left: 0;
+            right: 0;
             z-index: 9999;
             pointer-events: none;
+            transform: translateY(-100%);
             transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
         }
         #feedback-toast.toast-visible {
-            transform: translateX(-50%) translateY(0);
+            transform: translateY(0);
         }
     </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 font-sans min-h-screen flex justify-center w-full selection:bg-blue-500/30">
+<body class="bg-[#0b0f19] text-slate-100 font-sans w-full h-[100dvh] overflow-hidden flex justify-center selection:bg-blue-500/30">
     
-    <!-- Feedback Toast (outside #app so it survives innerHTML re-renders) -->
-    <div id="feedback-toast">
-        <div id="feedback-toast-inner" class="flex items-center justify-center gap-3 py-4 px-6 text-white font-black text-base tracking-wide shadow-lg"></div>
+    <!-- Master wrapper: constrains toast + app to max-w-md, full dvh -->
+    <div class="relative w-full max-w-md h-[100dvh] overflow-hidden flex flex-col mx-auto">
+
+        <!-- Feedback Toast (outside #app so it survives innerHTML re-renders) -->
+        <div id="feedback-toast">
+            <div id="feedback-toast-inner" class="flex items-center justify-center gap-3 py-4 px-6 text-white font-black text-base tracking-wide shadow-lg"></div>
+        </div>
+
+        <!-- Mobile-First Main Container -->
+        <div id="app" class="w-full bg-[#0b0f19] relative flex flex-col h-full overflow-hidden border-x border-slate-800/50">
+            <!-- Javascript will inject the screens dynamically here -->
+        </div>
+
     </div>
 
-    <!-- Mobile-First Main Container -->
-    <div id="app" class="w-full max-w-md bg-[#0b0f19] relative overflow-hidden flex flex-col min-h-screen border-x border-slate-800/50">
-        <!-- Javascript will inject the screens dynamically here -->
-    </div>
+    <!-- Startup Sound Effect -->
+    <audio id="splash-sfx" src="assets/sound-effects/subway-surfers-revive.mp3" preload="auto"></audio>
 
     <!-- App Logic -->
     <script src="script.js" type="module"></script>
