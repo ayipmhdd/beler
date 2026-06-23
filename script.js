@@ -7,8 +7,20 @@ import { renderResult } from './modules/matematika/mathResult.js';
 import { renderEngConfig } from './modules/english/engConfig.js';
 import { renderEngGame } from './modules/english/engGame.js';
 
+// Dynamic scroll policy: locked during game, open on menu screens
+function applyScrollPolicy() {
+    if (state.screen === 'game') {
+        document.body.style.overscrollBehaviorY = 'contain';
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overscrollBehaviorY = 'auto';
+        document.body.style.overflow = '';
+    }
+}
+
 // Central Router
 export function render() {
+    applyScrollPolicy();
     if (state.screen === 'home') renderHome();
     else if (state.screen === 'model_selection') renderModelSelection();
     else if (state.screen === 'game_config') renderGameConfig();
