@@ -59,10 +59,10 @@
         }
     </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 font-sans w-full h-[100dvh] overflow-hidden flex justify-center selection:bg-blue-500/30">
+<body class="bg-[#0b0f19] text-slate-100 font-sans w-full selection:bg-blue-500/30">
     
     <!-- Master wrapper: constrains toast + app to max-w-md, full dvh -->
-    <div class="relative w-full max-w-md h-[100dvh] overflow-hidden flex flex-col mx-auto">
+    <div id="app-root" class="relative w-full max-w-md h-[100dvh] flex flex-col mx-auto">
 
         <!-- Feedback Toast (outside #app so it survives innerHTML re-renders) -->
         <div id="feedback-toast">
@@ -70,7 +70,7 @@
         </div>
 
         <!-- Mobile-First Main Container -->
-        <div id="app" class="w-full bg-[#0b0f19] relative flex flex-col h-full overflow-hidden border-x border-slate-800/50">
+        <div id="app" class="w-full bg-[#0b0f19] relative flex flex-col h-full overflow-y-auto border-x border-slate-800/50">
             <!-- Javascript will inject the screens dynamically here -->
         </div>
 

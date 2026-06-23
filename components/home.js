@@ -31,8 +31,13 @@ export function renderHome() {
                 </button>
             </div>
             
-            <div class="mt-auto pt-10 text-center">
-                <p class="text-slate-600 text-xs font-bold tracking-[0.2em]">VERSI 1.0.0</p>
+            <div class="mt-auto pt-10">
+                ${window.deferredPrompt ? `
+                <button onclick="installPWA()" class="w-full bg-emerald-600 border border-emerald-500 rounded-2xl py-3 font-bold text-white shadow-[0_4px_0_0_#065f46] active:translate-y-[2px] active:shadow-[0_2px_0_0_#065f46] transition-all mb-4 text-sm tracking-wide">
+                    ✨ PASANG APLIKASI BELER
+                </button>
+                ` : ''}
+                <p class="text-slate-600 text-xs font-bold tracking-[0.2em] text-center">VERSI 1.0.0</p>
             </div>
         </div>
     `;

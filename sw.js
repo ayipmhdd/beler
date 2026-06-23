@@ -1,4 +1,4 @@
-const CACHE_NAME = 'math-brain-v8';
+const CACHE_NAME = 'math-brain-v9';
 const urlsToCache = [
     './',
     './index.html',
@@ -42,14 +42,33 @@ self.addEventListener('activate', event => {
     );
 });
 
-// Fetch Event: Strict Cache-First Strategy with Network Fallback
+// Fetch Event: Network-First for HTML docs (supports pull-to-refresh), Cache-First for assets
 self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request).then(response => {
-            // Return cached response if found, otherwise attempt network fetch
-            return response || fetch(event.request).catch(err => {
-                console.error('Network request failed and asset not found in cache:', event.request.url, err);
-            });
-        })
-    );
+    const url = new URL(event.request.url);
+    const isHtmlDoc = event.request.mode === 'navigate' ||
+        url.pathname === '/' ||
+        url.pathname.endsWith('/index.html');
+
+    if (isHtmlDoc) {
+        // Network-first: allows pull-to-refresh to reload fresh content
+        event.respondWith(
+            fetch(event.request)
+                .then(response => {
+                    // Update cache with fresh response
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+                    return response;
+                })
+                .catch(() => caches.match(event.request)) // Offline fallback
+        );
+    } else {
+        // Cache-first for all other assets (JS, CSS, images, audio)
+        event.respondWith(
+            caches.match(event.request).then(response => {
+                return response || fetch(event.request).catch(err => {
+                    console.error('Network request failed and asset not found in cache:', event.request.url, err);
+                });
+            })
+        );
+    }
 });

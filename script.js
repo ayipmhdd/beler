@@ -9,12 +9,17 @@ import { renderEngGame } from './modules/english/engGame.js';
 
 // Dynamic scroll policy: locked during game, open on menu screens
 function applyScrollPolicy() {
+    const appRoot = document.getElementById('app-root');
     if (state.screen === 'game') {
         document.body.style.overscrollBehaviorY = 'contain';
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        if (appRoot) appRoot.style.overflow = 'hidden';
     } else {
         document.body.style.overscrollBehaviorY = 'auto';
         document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        if (appRoot) appRoot.style.overflow = '';
     }
 }
 
@@ -130,6 +135,6 @@ window.installPWA = async () => {
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     window.deferredPrompt = e;
-    // If we're on the home screen, re-render to show the install button
-    if (state.screen === 'home') render();
+    // Re-render immediately so install button appears without race condition
+    if (typeof window.appRender === 'function') window.appRender();
 });
