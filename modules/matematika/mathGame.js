@@ -94,12 +94,36 @@ export function nextQuestion() {
     window.appRender();
 }
 
+function showFeedbackToast(isCorrect) {
+    const toast = document.getElementById('feedback-toast');
+    const inner = document.getElementById('feedback-toast-inner');
+    if (!toast || !inner) return;
+
+    inner.style.backgroundColor = isCorrect ? '#10b981' : '#f43f5e';
+    inner.innerHTML = isCorrect
+        ? '<svg style="width:22px;height:22px;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>BENAR! 🚀</span>'
+        : '<svg style="width:22px;height:22px;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg><span>SALAH! 💤</span>';
+
+    // Clear any lingering timeout
+    if (toast._hideTimeout) clearTimeout(toast._hideTimeout);
+    toast.classList.remove('toast-visible');
+
+    // Force reflow to restart transition cleanly
+    void toast.offsetWidth;
+    toast.classList.add('toast-visible');
+
+    toast._hideTimeout = setTimeout(() => {
+        toast.classList.remove('toast-visible');
+    }, 600);
+}
+
 export function answerQuestion(selectedAnswer, optionIndex) {
     if(state.answered) return;
     state.answered = true;
     
     const q = state.questions[state.currentQuestionIndex];
     const isCorrect = selectedAnswer === q.correctAnswer;
+    showFeedbackToast(isCorrect);
     
     if (isCorrect) {
         state.score += 10;
@@ -126,6 +150,7 @@ export function answerTrueFalse(selectedIsCorrect) {
     const q = state.questions[state.currentQuestionIndex];
     const actualIsCorrect = q.displayedAnswer === q.correctAnswer;
     const isCorrect = selectedIsCorrect === actualIsCorrect;
+    showFeedbackToast(isCorrect);
     
     if (isCorrect) {
         state.score += 10;
@@ -164,6 +189,7 @@ export function submitInput() {
     
     const q = state.questions[state.currentQuestionIndex];
     const isCorrect = parseInt(state.currentInputAnswer) === q.correctAnswer;
+    showFeedbackToast(isCorrect);
     
     if (isCorrect) {
         state.score += 10;
