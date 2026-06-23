@@ -81,6 +81,29 @@
 
     <!-- Startup Sound Effect -->
     <audio id="splash-sfx" src="assets/sound-effects/subway-surfers-revive.mp3" preload="auto"></audio>
+    <script>
+        // High-priority SFX boot — fires before module scripts load
+        (function() {
+            var sfx = document.getElementById('splash-sfx');
+            if (!sfx) return;
+            var played = false;
+            function tryPlay() {
+                if (played) return;
+                played = true;
+                sfx.play().catch(function() { played = false; });
+            }
+            // Attempt immediate autoplay
+            tryPlay();
+            // Fallback: first user tap/click triggers it if browser blocked autoplay
+            function onFirstInteraction() {
+                tryPlay();
+                document.removeEventListener('click', onFirstInteraction);
+                document.removeEventListener('touchstart', onFirstInteraction);
+            }
+            document.addEventListener('click', onFirstInteraction);
+            document.addEventListener('touchstart', onFirstInteraction);
+        })();
+    </script>
 
     <!-- App Logic -->
     <script src="script.js" type="module"></script>
